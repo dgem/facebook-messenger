@@ -82,13 +82,13 @@ func (msng *Messenger) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 			userID := msg.Sender.ID
 			switch {
 			case msg.Message != nil && msng.MessageReceived != nil:
-				go msng.MessageReceived(msng, userID, *msg.Message)
+				msng.MessageReceived(msng, userID, *msg.Message)
 
 			case msg.Delivery != nil && msng.DeliveryReceived != nil:
-				go msng.DeliveryReceived(msng, userID, *msg.Delivery)
+				msng.DeliveryReceived(msng, userID, *msg.Delivery)
 
 			case msg.Postback != nil && msng.PostbackReceived != nil:
-				go msng.PostbackReceived(msng, userID, *msg.Postback)
+				msng.PostbackReceived(msng, userID, *msg.Postback)
 			}
 		}
 	}
